@@ -27,7 +27,7 @@ namespace SchoolRegister.Services.Services
 
                 var subjectEntity = Mapper.Map<Subject>(addOrUpdateVm);
 
-                if (!addOrUpdateVm.Id.HasValue || addOrUpdateVm.Id == null)
+                if (!addOrUpdateVm.Id.HasValue || addOrUpdateVm.Id == 0)
                     DbContext.Subjects.Add(subjectEntity);
                 else
                     DbContext.Subjects.Update(subjectEntity);
