@@ -3,10 +3,12 @@ using AutoMapper;
 using SchoolRegister.Model.DataModels;
 using SchoolRegister.ViewModels.VM;
 
-namespace SchoolRegister.Web.Configuration.Profiles
+namespace SchoolRegister.Services.Configuration.AutoMapperProfile
 {
     public class MainProfile : Profile
     {
+        //AutoMapper maps
+
         public MainProfile()
         {
             CreateMap<Subject, SubjectVm>() // map from Subject(src) to SubjectVm(dst)
@@ -18,7 +20,6 @@ namespace SchoolRegister.Web.Configuration.Profiles
             CreateMap<AddOrUpdateSubjectVm, Subject>();
             CreateMap<Group, GroupVm>();
             CreateMap<SubjectVm, AddOrUpdateSubjectVm>();
-            // other maps...
         }
     }
 }
