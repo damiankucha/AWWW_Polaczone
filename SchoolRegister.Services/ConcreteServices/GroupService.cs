@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using SchoolRegister.DAL.EF;
 using SchoolRegister.Services.Interfaces;
 
-namespace SchoolRegister.Services.Services
+namespace SchoolRegister.Services.ConcreteServices
 {
     public class GroupService : BaseService, IGroupService
     {

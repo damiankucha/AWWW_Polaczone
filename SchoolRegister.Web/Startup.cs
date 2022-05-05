@@ -14,7 +14,7 @@ using Microsoft.Extensions.Hosting;
 using SchoolRegister.DAL.EF;
 using SchoolRegister.Model.DataModels;
 using Microsoft.Extensions.Logging;
-using SchoolRegister.Services.Configuration.AutoMapperProfile;
+using SchoolRegister.Services.Configuration.AutoMapperProfiles;
 
 namespace SchoolRegister.Web
 {

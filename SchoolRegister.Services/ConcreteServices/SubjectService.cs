@@ -9,7 +9,7 @@ using SchoolRegister.Model.DataModels;
 using SchoolRegister.Services.Interfaces;
 using SchoolRegister.ViewModels.VM;
 
-namespace SchoolRegister.Services.Services
+namespace SchoolRegister.Services.ConcreteServices
 {
     public class SubjectService : BaseService, ISubjectService
     {
