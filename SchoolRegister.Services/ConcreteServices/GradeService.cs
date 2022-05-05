@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using SchoolRegister.DAL.EF;
 using SchoolRegister.Services.Interfaces;
+using SchoolRegister.ViewModels.VM;
 
 namespace SchoolRegister.Services.ConcreteServices
 {
@@ -12,6 +13,14 @@ namespace SchoolRegister.Services.ConcreteServices
         {
         }
 
-        
+        public GradeVm AddGradeToStudent(AddGradeToStudentVm addGradeToStudentVm)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public GradesReportVm GetGradesReportForStudent(GetGradesReportVm getGradesReportVm)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

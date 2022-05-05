@@ -1,7 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using SchoolRegister.DAL.EF;
+using SchoolRegister.Model.DataModels;
 using SchoolRegister.Services.Interfaces;
+using SchoolRegister.ViewModels.VM;
 
 namespace SchoolRegister.Services.ConcreteServices
 {
@@ -12,6 +17,14 @@ namespace SchoolRegister.Services.ConcreteServices
         {
         }
 
-        
+        public StudentVm GetStudent(Expression<Func<Student, bool>> filterPredicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<StudentVm> GetStudents(Expression<Func<Student, bool>> filterPredicate = null)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -20,6 +20,11 @@ namespace SchoolRegister.Services.Configuration.AutoMapperProfiles
             CreateMap<AddOrUpdateSubjectVm, Subject>();
             CreateMap<Group, GroupVm>();
             CreateMap<SubjectVm, AddOrUpdateSubjectVm>();
+
+            CreateMap<Student, StudentVm>()
+                .ForMember(dest => dest.GroupName, x => x.MapFrom(src => src.Group.Name))
+                .ForMember(dest => dest.ParentName, x => x.MapFrom(src => $"{src.Parent.FirstName} {src.Parent.LastName}"));
+                
         }
     }
 }
