@@ -11,5 +11,7 @@ namespace SchoolRegister.Services.ConcreteServices
             : base(dbContext, mapper, logger)
         {
         }
+
+        // Test change
     }
 }
