@@ -11,6 +11,7 @@ namespace SchoolRegister.Services.Configuration.AutoMapperProfiles
 
         public MainProfile()
         {
+            // Subject service
             CreateMap<Subject, SubjectVm>() // map from Subject(src) to SubjectVm(dst)
                 // custom mapping: FirstName and LastName concat string to TeacherName
                 .ForMember(dest => dest.TeacherName, x => x.MapFrom(src => $"{src.Teacher.FirstName} {src.Teacher.LastName}"))
@@ -21,6 +22,7 @@ namespace SchoolRegister.Services.Configuration.AutoMapperProfiles
             CreateMap<Group, GroupVm>();
             CreateMap<SubjectVm, AddOrUpdateSubjectVm>();
 
+            // Student service
             CreateMap<Student, StudentVm>()
                 .ForMember(dest => dest.GroupName, x => x.MapFrom(src => src.Group.Name))
                 .ForMember(dest => dest.ParentName, x => x.MapFrom(src => $"{src.Parent.FirstName} {src.Parent.LastName}"));

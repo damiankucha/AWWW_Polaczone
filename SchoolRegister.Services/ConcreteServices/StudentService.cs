@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -19,12 +20,41 @@ namespace SchoolRegister.Services.ConcreteServices
 
         public StudentVm GetStudent(Expression<Func<Student, bool>> filterPredicate)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (filterPredicate == null)
+                    throw new ArgumentNullException($"Filter expression is null");
+                
+                var studentEntity = DbContext.Users.OfType<Student>().FirstOrDefault(filterPredicate);
+                var studentVm = Mapper.Map<StudentVm>(studentEntity);
+                return studentVm;
+            }
+
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
 
         public IEnumerable<StudentVm> GetStudents(Expression<Func<Student, bool>> filterPredicate = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var studentEntities = DbContext.Users.OfType<Student>().AsQueryable();
+
+                if (filterPredicate != null)
+                    studentEntities = studentEntities.Where(filterPredicate);
+
+                var studentVms = Mapper.Map<IEnumerable<StudentVm>>(studentEntities);
+                return studentVms;
+            }
+
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
     }
 }
