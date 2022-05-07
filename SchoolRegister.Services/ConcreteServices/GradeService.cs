@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -21,7 +22,7 @@ namespace SchoolRegister.Services.ConcreteServices
             _userManager = userManager;
         }
 
-        public async Task<GradeVm> AddGradeToStudent(AddGradeToStudentVm addGradeToStudentVm)
+        public GradeVm AddGradeToStudent(AddGradeToStudentVm addGradeToStudentVm)
         {
             try
             {
@@ -30,7 +31,7 @@ namespace SchoolRegister.Services.ConcreteServices
 
                 var teacher = DbContext.Users.OfType<Teacher>().FirstOrDefault(t => t.Id == addGradeToStudentVm.TeacherId);
 
-                if (await _userManager.IsInRoleAsync(teacher, "Teacher") == false)
+                if (_userManager.IsInRoleAsync(teacher, "Teacher").Result == false)
                     throw new ArgumentException($"User is not a teacher");
                     
                 var gradeEntity = Mapper.Map<Grade>(addGradeToStudentVm);
@@ -51,7 +52,37 @@ namespace SchoolRegister.Services.ConcreteServices
 
         public GradesReportVm GetGradesReportForStudent(GetGradesReportVm getGradesReportVm)
         {
-            throw new System.NotImplementedException();
+            try 
+            {
+                if (getGradesReportVm == null)
+                    throw new ArgumentNullException($"View model parameter is null");
+
+                var getterEntity = DbContext.Users.FirstOrDefault(x => x.Id == getGradesReportVm.GetterUserId);
+
+                if (_userManager.IsInRoleAsync(getterEntity, "Student").Result || _userManager.IsInRoleAsync(getterEntity, "Parent").Result)
+                {
+                    var grades = DbContext.Grades.Where(x => x.StudentId == getGradesReportVm.StudentId);
+                    var gradesVm = Mapper.Map<IList<GradeVm>>(grades);
+
+                    var gradesReportVm = new GradesReportVm()
+                    {
+                        Grades = gradesVm,
+                        GetterUserId = getGradesReportVm.GetterUserId,
+                        GetterUserName = $"{getterEntity.FirstName} {getterEntity.LastName}"
+                    };
+
+                    return gradesReportVm;
+                }
+
+                else 
+                    throw new ArgumentException("Invalid user role");
+            }
+
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
     }
 }

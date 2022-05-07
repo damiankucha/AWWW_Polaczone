@@ -38,7 +38,7 @@ namespace SchoolRegister.Services.Configuration.AutoMapperProfiles
                 .ForMember(dest => dest.StudentName, x => x.MapFrom(src => $"{src.Student.FirstName} {src.Student.LastName}"))
                 .ForMember(dest => dest.SubjectName, x => x.MapFrom(src => src.Subject.Name));
 
-            CreateMap<AddGradeToStudentVm, Grade>();    
+            CreateMap<AddGradeToStudentVm, Grade>(); 
         }
     }
 }
