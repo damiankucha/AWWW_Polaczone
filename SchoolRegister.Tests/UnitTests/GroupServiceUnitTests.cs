@@ -88,6 +88,33 @@ namespace SchoolRegister.Tests.UnitTests
             Assert.NotNull(group.Students.FirstOrDefault(x => x.Id == 7));
         }
 
+        [Fact]
+        public void DetachStudentFromGroup()
+        {
+            var detachStudentToGroupVm = new AttachDetachStudentToGroupVm()
+            {
+                GroupId = 1,
+                StudentId = 7
+            };
 
+            var student = _groupService.DetachStudentFromGroup(detachStudentToGroupVm);
+            Assert.NotNull(student);
+            Assert.Null(student.GroupName);
+        }
+
+        [Fact]
+        public void AttachSubjectToGroup()
+        {
+            var attachSubjectGroupVm = new AttachDetachSubjectGroupVm()
+            {
+                GroupId = 1,
+                SubjectId = 4
+            };
+            
+            _groupService.AttachSubjectToGroup(attachSubjectGroupVm);
+            var group = _groupService.GetGroup(g => g.Id == attachSubjectGroupVm.GroupId);
+            Assert.NotNull(group);
+            Assert.NotNull(group.Subjects.FirstOrDefault(s => s.Name == "Administracja Intenetowymi Systemami Baz Danych"));
+        }
     }
 }

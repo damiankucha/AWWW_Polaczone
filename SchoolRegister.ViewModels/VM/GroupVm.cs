@@ -9,5 +9,6 @@ namespace SchoolRegister.ViewModels.VM
         [Required]
         public string Name { get; set; }
         public IList<StudentVm> Students { get; set; }
+        public IList<SubjectVm> Subjects { get; set; }
     }
 }

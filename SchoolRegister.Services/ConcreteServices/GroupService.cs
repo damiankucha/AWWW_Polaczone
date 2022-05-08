@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SchoolRegister.DAL.EF;
 using SchoolRegister.Model.DataModels;
@@ -69,6 +70,62 @@ namespace SchoolRegister.Services.ConcreteServices
             }
         }
 
+        public GroupVm AttachSubjectToGroup(AttachDetachSubjectGroupVm attachDetachSubjectGroupVm)
+        {
+            try
+            {
+                if (attachDetachSubjectGroupVm == null)
+                    throw new ArgumentNullException("View model parameter is null");
+
+                var group = DbContext.Groups
+                    .Include(p => p.SubjectGroups)
+                    .Single(p => p.Id == attachDetachSubjectGroupVm.GroupId);
+
+                var subject = DbContext.Subjects
+                    .Single(p => p.Id == attachDetachSubjectGroupVm.SubjectId);
+
+                group.SubjectGroups.Add(new SubjectGroup
+                {
+                    Group = group,
+                    Subject = subject
+                });
+                DbContext.SaveChanges();
+
+                var groupVm = Mapper.Map<GroupVm>(group);
+                return groupVm;
+            }
+
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        public StudentVm DetachStudentFromGroup(AttachDetachStudentToGroupVm detachStudentToGroupVm)
+        {
+            try
+            {
+                if (detachStudentToGroupVm == null)
+                    throw new ArgumentNullException("View model parameter is null");
+
+                var student = DbContext.Users.OfType<Student>()
+                    .FirstOrDefault(x => x.Id == detachStudentToGroupVm.StudentId);
+
+                student.GroupId = null;
+                DbContext.SaveChanges();
+
+                var studentVm = Mapper.Map<StudentVm>(student);
+                return studentVm;
+            }
+
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
         public GroupVm GetGroup(Expression<Func<Group, bool>> filterPredicate)
         {
             try 
@@ -109,4 +166,3 @@ namespace SchoolRegister.Services.ConcreteServices
         }
     }
 }
-//
