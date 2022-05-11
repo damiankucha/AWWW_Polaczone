@@ -125,10 +125,40 @@ namespace SchoolRegister.Tests.UnitTests
                 GroupId = 2,
                 SubjectId = 4
             };
-            
+
             var group = _groupService.DetachSubjectFromGroup(detachSubjectGroupVm);
             Assert.NotNull(group);
             Assert.Null(group.Subjects.FirstOrDefault(s => s.Name == "Administracja Intenetowymi Systemami Baz Danych"));
+        }
+
+
+        [Fact]
+        public void AttachTeacherToSubject()
+        {
+            var attachSubjectTeacher = new AttachDetachSubjectToTeacherVm()
+            {
+                SubjectId = 5,
+                TeacherId = 2
+            };
+
+            var subject = _groupService.AttachTeacherToSubject(attachSubjectTeacher);
+            Assert.NotNull(subject);
+            Assert.True(subject.TeacherId == attachSubjectTeacher.TeacherId);
+        }
+
+        [Fact]
+        public void DetachTeacherToSubject()
+        {
+            var detachSubjectTeacher = new AttachDetachSubjectToTeacherVm()
+            {
+                SubjectId = 3,
+                TeacherId = 2
+            };
+
+            var subject = _groupService.DetachTeacherFromSubject(detachSubjectTeacher);
+            Assert.NotNull(subject);
+            Assert.Null(subject.TeacherId);
+            Assert.Null(subject.TeacherName);
         }
     }
 }

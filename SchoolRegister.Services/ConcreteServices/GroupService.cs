@@ -102,6 +102,30 @@ namespace SchoolRegister.Services.ConcreteServices
             }
         }
 
+        public SubjectVm AttachTeacherToSubject(AttachDetachSubjectToTeacherVm attachDetachSubjectToTeacherVm)
+        {
+            try
+            {
+                if (attachDetachSubjectToTeacherVm == null)
+                    throw new ArgumentNullException("View model parameter is null");
+
+                var subject = DbContext.Subjects
+                    .FirstOrDefault(p => p.Id == attachDetachSubjectToTeacherVm.SubjectId);
+
+                subject.TeacherId = attachDetachSubjectToTeacherVm.TeacherId;
+                DbContext.SaveChanges();
+
+                var subjectVm = Mapper.Map<SubjectVm>(subject);
+                return subjectVm;
+            }
+
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
         public StudentVm DetachStudentFromGroup(AttachDetachStudentToGroupVm detachStudentToGroupVm)
         {
             try
@@ -147,6 +171,30 @@ namespace SchoolRegister.Services.ConcreteServices
             }
 
             catch (Exception ex) 
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        public SubjectVm DetachTeacherFromSubject(AttachDetachSubjectToTeacherVm attachDetachSubjectToTeacherVm)
+        {
+            try
+            {
+                if (attachDetachSubjectToTeacherVm == null)
+                    throw new ArgumentNullException("View model parameter is null");
+
+                var subject = DbContext.Subjects
+                    .FirstOrDefault(p => p.Id == attachDetachSubjectToTeacherVm.SubjectId);
+
+                subject.TeacherId = null;
+                DbContext.SaveChanges();
+
+                var subjectVm = Mapper.Map<SubjectVm>(subject);
+                return subjectVm;
+            }
+
+            catch (Exception ex)
             {
                 Logger.LogError(ex, ex.Message);
                 throw;
