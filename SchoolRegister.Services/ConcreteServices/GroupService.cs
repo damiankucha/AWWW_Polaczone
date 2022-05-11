@@ -126,6 +126,33 @@ namespace SchoolRegister.Services.ConcreteServices
             }
         }
 
+        public GroupVm DetachSubjectFromGroup(AttachDetachSubjectGroupVm detachSubjectGroupVm)
+        {
+            try
+            {
+                if (detachSubjectGroupVm == null)
+                    throw new ArgumentNullException("View model parameter is null");
+
+                var subjectGroup = DbContext.SubjectGroups
+                    .Find(detachSubjectGroupVm.GroupId, detachSubjectGroupVm.SubjectId);
+
+                DbContext.SubjectGroups.Remove(subjectGroup);
+                DbContext.SaveChanges();
+
+                var group = DbContext.Groups
+                    .FirstOrDefault(p => p.Id == detachSubjectGroupVm.GroupId);
+                
+                var groupVm = Mapper.Map<GroupVm>(group);
+                return groupVm;
+            }
+
+            catch (Exception ex) 
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
         public GroupVm GetGroup(Expression<Func<Group, bool>> filterPredicate)
         {
             try 

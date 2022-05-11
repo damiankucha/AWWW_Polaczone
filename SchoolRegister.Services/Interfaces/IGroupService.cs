@@ -12,6 +12,7 @@ namespace SchoolRegister.Services.Interfaces
         StudentVm AttachStudentToGroup(AttachDetachStudentToGroupVm attachStudentToGroupVm);
         GroupVm AttachSubjectToGroup(AttachDetachSubjectGroupVm attachDetachSubjectGroupVm);
         StudentVm DetachStudentFromGroup(AttachDetachStudentToGroupVm detachStudentToGroupVm);
+        GroupVm DetachSubjectFromGroup(AttachDetachSubjectGroupVm detachSubjectGroupVm);
         GroupVm GetGroup(Expression<Func<Group, bool>> filterPredicate);
         IEnumerable<GroupVm> GetGroups(Expression<Func<Group, bool>> filterPredicate = null);
     }

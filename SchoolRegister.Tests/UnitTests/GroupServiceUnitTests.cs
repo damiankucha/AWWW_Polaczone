@@ -116,5 +116,19 @@ namespace SchoolRegister.Tests.UnitTests
             Assert.NotNull(group);
             Assert.NotNull(group.Subjects.FirstOrDefault(s => s.Name == "Administracja Intenetowymi Systemami Baz Danych"));
         }
+
+        [Fact]
+        public void DetachSubjectFromGroup()
+        {
+            var detachSubjectGroupVm = new AttachDetachSubjectGroupVm()
+            {
+                GroupId = 2,
+                SubjectId = 4
+            };
+            
+            var group = _groupService.DetachSubjectFromGroup(detachSubjectGroupVm);
+            Assert.NotNull(group);
+            Assert.Null(group.Subjects.FirstOrDefault(s => s.Name == "Administracja Intenetowymi Systemami Baz Danych"));
+        }
     }
 }
