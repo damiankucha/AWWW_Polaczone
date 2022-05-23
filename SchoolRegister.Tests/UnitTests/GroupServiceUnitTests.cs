@@ -153,7 +153,7 @@ namespace SchoolRegister.Tests.UnitTests
             {
                 SubjectId = 3,
                 TeacherId = 2
-            };
+            }; 
 
             var subject = _groupService.DetachTeacherFromSubject(detachSubjectTeacher);
             Assert.NotNull(subject);
