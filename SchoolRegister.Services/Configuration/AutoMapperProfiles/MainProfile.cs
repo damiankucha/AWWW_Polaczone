@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using AutoMapper;
 using SchoolRegister.Model.DataModels;
@@ -45,6 +46,25 @@ namespace SchoolRegister.Services.Configuration.AutoMapperProfiles
 
             // Group service
             CreateMap<AddOrUpdateGroupVm, Group>();
+
+
+            // Registration
+            CreateMap<RegisterNewUserVm, User>()
+                .ForMember(dest => dest.UserName, y => y.MapFrom(src => src.Email))
+                .ForMember(dest => dest.RegistrationDate, y => y.MapFrom(src => DateTime.Now));
+            
+            CreateMap<RegisterNewUserVm, Parent>()
+                .ForMember(dest => dest.UserName, y => y.MapFrom(src => src.Email))
+                .ForMember(dest => dest.RegistrationDate, y => y.MapFrom(src => DateTime.Now));
+            
+            CreateMap<RegisterNewUserVm, Student>()
+                .ForMember(dest => dest.UserName, y => y.MapFrom(src => src.Email))
+                .ForMember(dest => dest.RegistrationDate, y => y.MapFrom(src => DateTime.Now));
+            
+            CreateMap<RegisterNewUserVm, Teacher>()
+                .ForMember(dest => dest.UserName, y => y.MapFrom(src => src.Email))
+                .ForMember(dest => dest.RegistrationDate, y => y.MapFrom(src => DateTime.Now))
+                .ForMember(dest => dest.Title, y => y.MapFrom(src => src.TeacherTitles));
         }
     }
 }

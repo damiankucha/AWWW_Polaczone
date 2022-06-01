@@ -15,6 +15,8 @@ using SchoolRegister.DAL.EF;
 using SchoolRegister.Model.DataModels;
 using Microsoft.Extensions.Logging;
 using SchoolRegister.Services.Configuration.AutoMapperProfiles;
+using SchoolRegister.Services.Interfaces;
+using SchoolRegister.Services.ConcreteServices;
 
 namespace SchoolRegister.Web
 {
@@ -41,7 +43,12 @@ namespace SchoolRegister.Web
                 .AddRoleManager<RoleManager<Role>>()
                 .AddUserManager<UserManager<User>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-                services.AddTransient(typeof(ILogger), typeof(Logger<Startup>));
+            services.AddTransient(typeof(ILogger), typeof(Logger<Startup>));
+            services.AddTransient<ISubjectService, SubjectService>();
+            services.AddTransient<IGradeService, GradeService>();
+            services.AddTransient<IGroupService, GroupService>();
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<ITeacherService, TeacherService>();
             services.AddControllersWithViews();
         }
 
