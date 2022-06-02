@@ -10,5 +10,6 @@ namespace SchoolRegister.ViewModels.VM
         public IList<GroupVm> Groups { get; set; }
         public string TeacherName { get; set; }
         public int? TeacherId { get; set; }
+        public int GroupsCount => Groups == null || Groups.Count == 0 ? 0 : Groups.Count;
     }
 }

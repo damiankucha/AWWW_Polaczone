@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.TeacherName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TeacherId)
+                @Html.DisplayNameFor(model => model.GroupsCount)
             </th>
             <th></th>
         </tr>
@@ -51,12 +51,13 @@
                     @Html.DisplayFor(modelItem => item.TeacherName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TeacherId)
+                    @Html.DisplayFor(modelItem => item.GroupsCount)
                 </td>
                 <td>
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="AddOrEditSubject" asp-route-id="@item.Id">Edit</a> @:|
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> @:|
                         <a asp-controller="Group" asp-action="AttachSubjectToGroup" asp-route-subjectId="@item.Id">
                             Attach Subject To Group
                         </a> @:|

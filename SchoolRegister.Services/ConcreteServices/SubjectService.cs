@@ -45,6 +45,26 @@ namespace SchoolRegister.Services.ConcreteServices
             }
         }
 
+        public void DeleteSubject(AddOrUpdateSubjectVm deleteSubjectVm)
+        {
+            try
+            {
+                if (deleteSubjectVm == null)
+                    throw new ArgumentNullException("View model parameter is null");
+                
+                var subjectEntity = Mapper.Map<Subject>(deleteSubjectVm);
+
+                DbContext.Subjects.Remove(subjectEntity);
+                DbContext.SaveChanges();
+            }
+
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
         public SubjectVm GetSubject(Expression<Func<Subject, bool>> filterExpression)
         {
             try

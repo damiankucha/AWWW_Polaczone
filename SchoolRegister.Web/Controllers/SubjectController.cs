@@ -96,5 +96,24 @@ namespace SchoolRegister.Web.Controllers
 
             return View();
         }
+
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var subjectVm = _subjectService.GetSubject(x => x.Id == id);
+            return View(Mapper.Map<AddOrUpdateSubjectVm>(subjectVm));
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(AddOrUpdateSubjectVm deleteSubject)
+        {
+            _subjectService.DeleteSubject(deleteSubject);
+            return RedirectToAction("Index");
+        }
+
     }
 }
