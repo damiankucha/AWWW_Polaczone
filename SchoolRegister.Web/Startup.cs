@@ -17,6 +17,11 @@ using Microsoft.Extensions.Logging;
 using SchoolRegister.Services.Configuration.AutoMapperProfiles;
 using SchoolRegister.Services.Interfaces;
 using SchoolRegister.Services.ConcreteServices;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Localization;
+using SchoolRegister.Web.Controllers;
 
 namespace SchoolRegister.Web
 {
@@ -44,12 +49,30 @@ namespace SchoolRegister.Web
                 .AddUserManager<UserManager<User>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddTransient(typeof(ILogger), typeof(Logger<Startup>));
+            services.AddTransient<IStringLocalizer, StringLocalizer<BaseController>>();
             services.AddTransient<ISubjectService, SubjectService>();
             services.AddTransient<IGradeService, GradeService>();
             services.AddTransient<IGroupService, GroupService>();
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<ITeacherService, TeacherService>();
-            services.AddControllersWithViews();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[] {
+                    new CultureInfo("en"),
+                    new CultureInfo("pl-PL")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture(culture: "en", uiCulture: "en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddControllersWithViews()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +96,9 @@ namespace SchoolRegister.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            var localizationOption = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(localizationOption?.Value);
 
             app.UseEndpoints(endpoints =>
             {
