@@ -46,6 +46,11 @@ namespace SchoolRegister.Services.Configuration.AutoMapperProfiles
 
             // Group service
             CreateMap<AddOrUpdateGroupVm, Group>();
+            CreateMap<GroupVm, AddOrUpdateGroupVm>();
+            CreateMap<GroupVm, AttachDetachStudentToGroupVm>()
+                .ForMember(dest => dest.GroupId, x => x.MapFrom(src => src.Id));
+            CreateMap<GroupVm, AttachDetachSubjectGroupVm>()
+                .ForMember(dest => dest.GroupId, x => x.MapFrom(src => src.Id));
 
 
             // Registration

@@ -17,5 +17,6 @@ namespace SchoolRegister.Services.Interfaces
         SubjectVm DetachTeacherFromSubject(AttachDetachSubjectToTeacherVm attachDetachSubjectToTeacherVm);
         GroupVm GetGroup(Expression<Func<Group, bool>> filterPredicate);
         IEnumerable<GroupVm> GetGroups(Expression<Func<Group, bool>> filterPredicate = null);
+        bool RemoveGroup(Expression<Func<Group, bool>> filterPredicate);
     }
 }

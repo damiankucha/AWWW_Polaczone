@@ -1,0 +1,80 @@
+@model SchoolRegister.ViewModels.VM.GroupVm
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>GroupVm</h4>
+    <div>
+        <a asp-action="AttachStudentToGroup" asp-route-id="@Model.Id" class="btn btn-primary">Attach Student</a>
+        <a asp-action="AttachSubjectToGroup" asp-route-id="@Model.Id" class="btn btn-warning">Attach Subject</a>
+    </div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StudentCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StudentCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SubjectCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SubjectCount)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h5>Students:</h5>
+    <ul class="list-unstyled">
+        @foreach (var obj in Model.Students)
+        {
+            <div class="row m-2">
+                <li>
+                    <a asp-action="DetachStudentFromGroup" asp-route-id="@Model.Id" asp-route-stdId="@obj.Id" class="btn-sm mr-2 btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    <a asp-controller="Student" asp-action="Details" asp-route-id="@obj.Id">
+                        @obj.FirstName @obj.LastName
+                    </a>
+                </li>
+            </div>
+        }
+    </ul>
+    <h5>Subjects:</h5>
+    <ul class="list-unstyled">
+        @foreach (var obj in Model.Subjects)
+        {
+            <div class="row m-2">
+                <li>
+                    <a asp-action="DetachSubjectFromGroup" asp-route-id="@Model.Id" asp-route-subId="@obj.Id" class="btn-sm mr-2 btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    <a asp-controller="Subject" asp-action="Details" asp-route-id="@obj.Id">
+                        @obj.Name
+                    </a>
+                </li>
+            </div>
+        }
+    </ul>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

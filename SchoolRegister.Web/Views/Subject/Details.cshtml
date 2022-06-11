@@ -49,6 +49,14 @@
     </dl>
 </div>
 <div>
+    <ul>
+        @foreach (var obj in Model.Groups)
+        {
+            <a asp-controller="Group" asp-action="Details" asp-route-id="@obj.Id"><li>@obj.Name</li></a>
+        }
+    </ul>
+</div>
+<div>
     @Html.ActionLink("Edit", "AddOrEditSubject", new {  id = Model.Id  }) |
     <a asp-action="Index">Back to List</a>
 </div>

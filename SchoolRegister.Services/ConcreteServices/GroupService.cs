@@ -239,5 +239,31 @@ namespace SchoolRegister.Services.ConcreteServices
                 throw;
             }
         }
+
+        public bool RemoveGroup(Expression<Func<Group, bool>> filterPredicate)
+        {
+            try
+            {
+                if (filterPredicate == null)
+                    throw new ArgumentNullException("Filter predicate is null");
+                
+                var groupEntity = DbContext.Groups.FirstOrDefault(filterPredicate);
+
+                foreach (var student in groupEntity.Students)
+                {
+                    student.GroupId = null;
+                }
+
+                DbContext.Groups.Remove(groupEntity);
+                DbContext.SaveChanges();
+                return true;
+            }
+
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
     }
 }
