@@ -58,10 +58,10 @@
                     {
                         <a asp-action="AddOrEditSubject" asp-route-id="@item.Id">Edit</a> @:|
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> @:|
-                        <a asp-controller="Group" asp-action="AttachSubjectToGroup" asp-route-subjectId="@item.Id">
+                        <a asp-action="AttachSubjectToGroup" asp-route-id="@item.Id">
                             Attach Subject To Group
                         </a> @:|
-                        <a asp-controller="Group" asp-action="DetachSubjectToGroup" asp-route-subjectId="@item.Id">
+                        <a asp-action="DetachSubjectFromGroup" asp-route-id="@item.Id">
                             Detach Subject from Group
                         </a> @:|
                     }

@@ -18,12 +18,13 @@ namespace SchoolRegister.Services.Configuration.AutoMapperProfiles
                 .ForMember(dest => dest.TeacherName, x => x.MapFrom(src => $"{src.Teacher.FirstName} {src.Teacher.LastName}"))
                 // custom mapping: IList<Group> to IList<GroupVm>
                 .ForMember(dest => dest.Groups, x => x.MapFrom(src => src.SubjectGroups.Select(y => y.Group)));
-
             CreateMap<AddOrUpdateSubjectVm, Subject>();
             CreateMap<Group, GroupVm>()
                 .ForMember(dest => dest.Students, x => x.MapFrom(src => src.Students))
                 .ForMember(dest => dest.Subjects, x => x.MapFrom(src => src.SubjectGroups.Select(y => y.Subject)));
             CreateMap<SubjectVm, AddOrUpdateSubjectVm>();
+            CreateMap<SubjectVm, AttachDetachSubjectGroupVm>()
+                .ForMember(dest => dest.SubjectId, x => x.MapFrom(src => src.Id));
 
 
             // Student service
