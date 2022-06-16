@@ -30,7 +30,7 @@ namespace SchoolRegister.Services.Configuration.AutoMapperProfiles
             // Student service
             CreateMap<Student, StudentVm>()
                 .ForMember(dest => dest.GroupName, x => x.MapFrom(src => src.Group.Name))
-                .ForMember(dest => dest.ParentName, x => x.MapFrom(src => $"{src.Parent.FirstName} {src.Parent.LastName}"));
+                .ForMember(dest => dest.ParentName, x => x.MapFrom(src => $"{src.Parent.FirstName} {src.Parent.LastName}")).ForMember(dest => dest.Grades, x => x.MapFrom(src => src.Grades));
                 
 
             // Teacher service

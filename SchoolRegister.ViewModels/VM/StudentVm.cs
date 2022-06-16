@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace SchoolRegister.ViewModels.VM
 {
@@ -14,5 +15,7 @@ namespace SchoolRegister.ViewModels.VM
         public string GroupName { get; set; }
         public int? ParentId { get; set; }
         public string ParentName { get; set; }
+        public IList<GradeVm> Grades { get; set; }
+        public int GradesCount => Grades == null || Grades.Count == 0 ? 0 : Grades.Count;
     }
 }

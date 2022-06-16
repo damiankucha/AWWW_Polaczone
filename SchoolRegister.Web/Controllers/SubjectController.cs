@@ -45,7 +45,7 @@ namespace SchoolRegister.Web.Controllers
                     return View(_subjectService.GetSubjects(x => x.TeacherId == teacher.Id));
                 throw new Exception("Teacher is assinged to role, but to the Teacher type.");
             }
-            
+
             else if (_userManager.IsInRoleAsync(user, "Student").Result)
                 return RedirectToAction("Details", "Student", new { studentId = user.Id });
             
