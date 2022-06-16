@@ -36,6 +36,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.GradesCount)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -67,6 +68,10 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GradesCount)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="AddGradeToStudent" asp-route-id="@item.Id">Add Grade</a>
             </td>
         </tr>
 }

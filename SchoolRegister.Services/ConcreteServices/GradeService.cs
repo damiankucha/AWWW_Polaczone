@@ -35,6 +35,7 @@ namespace SchoolRegister.Services.ConcreteServices
                     throw new ArgumentException($"User is not a teacher");
                     
                 var gradeEntity = Mapper.Map<Grade>(addGradeToStudentVm);
+                gradeEntity.DateOfIssue = DateTime.Now;
 
                 DbContext.Grades.Add(gradeEntity);
                 DbContext.SaveChanges();
