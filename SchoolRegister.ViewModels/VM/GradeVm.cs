@@ -11,5 +11,6 @@ namespace SchoolRegister.ViewModels.VM
         public string SubjectName { get; set; }
         public int StudentId { get; set; }
         public string StudentName { get; set; }
+        public string TeacherName { get; set; }
     }
 }

@@ -40,6 +40,13 @@ namespace SchoolRegister.Web.Controllers
         [Authorize(Roles = "Admin, Student, Teacher")]
         public IActionResult Details(int id)
         {
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (_userManager.IsInRoleAsync(user, "Student").Result && id != user.Id)
+            {
+                return RedirectToAction("Index");
+            }
+
             var studentVm = _studentService.GetStudent(x => x.Id == id);
             return View(studentVm);
         }

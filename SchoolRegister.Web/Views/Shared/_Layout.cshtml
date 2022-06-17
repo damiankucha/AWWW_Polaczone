@@ -19,7 +19,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
+                        @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("Student"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-danger" asp-area="" asp-controller="Subject" asp-action="Index">Subjects</a>

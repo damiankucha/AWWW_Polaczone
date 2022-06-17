@@ -47,7 +47,7 @@ namespace SchoolRegister.Web.Controllers
             }
 
             else if (_userManager.IsInRoleAsync(user, "Student").Result)
-                return RedirectToAction("Details", "Student", new { studentId = user.Id });
+                return RedirectToAction("Details", "Student", new { id = user.Id });
             
             else if (_userManager.IsInRoleAsync(user, "Parent").Result)
                 return RedirectToAction("Index", "Student");

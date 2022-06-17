@@ -67,7 +67,7 @@
     <ul>
         @foreach (var grade in Model.Grades)
         {
-            <li>@grade.GradeValue - @grade.SubjectName</li>
+            <li>@grade.GradeValue - @grade.SubjectName (@grade.TeacherName)</li>
         }
     </ul>
 </div>
